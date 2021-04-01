@@ -1,0 +1,55 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Transform: AWS::Serverless-2016-10-31
+Description: Data Lake ingest pipeline for BlueFuel
+
+Metadata:
+  AWS::ServerlessRepo::Application:
+    Name: !Sub 'cdv-data-lake-bf-${Environment}'
+    Description: Data Lake ingest pipeline for BlueFuel
+    Author: Apadmi
+    Labels: ['cdv']
+
+Parameters:
+  Environment:
+    Description: Environment being deployed to. This will be used as part of the resource names
+    Type: String
+  DeploymentBucketName:
+    Description: S3 bucket where stack code is deployed to
+    Type: String
+  DeploymentBucketPrefix:
+    Description: Path used inside deployment S3 bucket
+    Type: String
+  LakeFormationS3AccessRoleArn:
+    Description: ARN of the Role in the platform account used by LakeFormation to access product S3 buckets.
+    Type: String
+  GALegacyFirehoseBucket:
+    Description: Name of firehose destination S3 bucket in legacy google analytics data pipeline
+    Type: String
+
+Outputs:
+  LandingBucketName:
+    Description: Name of the Landing S3 bucket
+    Value: !Ref LandingBucket
+  LandingDataSnsTopicArn:
+    Description: ARN of the SNS topic which is notified when new pinpoint data arrives in the landing bucket
+    Value: !Ref PinpointLandingDataSnsTopic
+
+Resources:
+
+  # S3 Buckets
+  $include: ./s3/LandingBucket.yaml
+  $include: ./s3/RawBucket.yaml
+  $include: ./s3/SensitiveBucket.yaml
+  $include: ./s3/CleansedBucket.yaml
+
+  # SNS
+  $include: ./sns/PinpointLandingDataSnsTopic.yaml
+  $include: ./sns/GALandingDataSnsTopic.yaml
+
+  # Google Analytics Ingest Pipeline
+  $include: ./ingest/ga/CopyLandingDataToLegacyBucketFunction.yaml
+  $include: ./ingest/ga/FirehoseTransformationFunction.yaml
+  $include: ./ingest/ga/GoogleAnalyticsFirehoseRole.yaml
+  $include: ./ingest/ga/GoogleAnalyticsFirehoseStream.yaml
+
+

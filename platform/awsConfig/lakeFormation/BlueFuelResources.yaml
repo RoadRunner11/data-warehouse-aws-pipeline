@@ -1,0 +1,16 @@
+# Registers the product-specific S3 buckets with LakeFormation in the central account
+# to allow LakeFormation to manage permissions for access to the data.
+
+BlueFuelRawBucketResource:
+  Type: AWS::LakeFormation::Resource
+  Properties: 
+    ResourceArn: !Sub 'arn:aws:s3:::${BlueFuelRawBucketName}'
+    RoleArn: !GetAtt LakeFormationS3AccessRole.Arn
+    UseServiceLinkedRole: false
+
+BlueFuelSensitiveBucketResource:
+  Type: AWS::LakeFormation::Resource
+  Properties: 
+    ResourceArn: !Sub 'arn:aws:s3:::${BlueFuelSensitiveBucketName}'
+    RoleArn: !GetAtt LakeFormationS3AccessRole.Arn
+    UseServiceLinkedRole: false

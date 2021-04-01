@@ -1,0 +1,27 @@
+CleansedBucket:
+  Type: AWS::S3::Bucket
+  DeletionPolicy: Retain
+  Properties:
+    BucketName: !Sub 'cdv-datalake-cleansed-pp-${Environment}'
+    
+CleansedBucketPolicy:
+  Type: AWS::S3::BucketPolicy
+  DeletionPolicy: Retain
+  Properties:
+    Bucket: !Ref CleansedBucket
+    PolicyDocument:
+      Statement:
+        - Action:
+            - s3:ListBucket
+          Effect: Allow
+          Principal:
+            AWS: !Ref LakeFormationS3AccessRoleArn
+          Resource: !Sub arn:aws:s3:::${CleansedBucket}
+        - Action:
+            - s3:DeleteObject
+            - s3:GetObject
+            - s3:PutObject
+          Effect: Allow
+          Principal:
+            AWS: !Ref LakeFormationS3AccessRoleArn
+          Resource: !Sub arn:aws:s3:::${CleansedBucket}/*

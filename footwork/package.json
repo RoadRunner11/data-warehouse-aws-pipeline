@@ -1,0 +1,31 @@
+{
+    "name": "cdv-healthplatform-core-pp",
+    "version": "1.0.0",
+    "description": "Data Lake Core for Footwork",
+    "scripts": {
+        "deploy": "npm run compileDataLakeTemplate && node ./deploymentScripts/deployDataLake.js",
+        "compileDataLakeTemplate": "yamlinc awsConfig/template-data-lake.yaml --schema node_modules/cloudformation-schema-js-yaml"
+    },
+    "devDependencies": {
+        "aws-sdk": "^2.478.0",
+        "ts-loader": "^6.0.4",
+        "@types/aws-lambda": "^8.10.41",
+        "@types/uuid": "^3.4.5",
+        "cloudformation-schema-js-yaml": "^1.0.1",
+        "colors": "^1.4.0",
+        "cpx": "^1.5.0",
+        "glob": "^7.1.6",
+        "minimist": "^1.2.0",
+        "npm-watch": "^0.6.0",
+        "swagger-cli": "^2.3.1",
+        "tslint": "^5.17.0",
+        "tslint-etc": "^1.13.7",
+        "typescript": "^3.7.5",
+        "webpack": "^4.39.3",
+        "webpack-cli": "^3.3.5",
+        "webpack-node-externals": "^1.7.2",
+        "yamlinc": "^0.1.10"
+    },
+    "author": "",
+    "license": "ISC"
+}

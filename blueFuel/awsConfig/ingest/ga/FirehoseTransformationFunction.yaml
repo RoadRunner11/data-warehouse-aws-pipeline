@@ -1,0 +1,24 @@
+FirehoseTransformationFunction:
+  Type: AWS::Serverless::Function
+  Properties:
+    Runtime: python3.7 
+    MemorySize: 128
+    Timeout: 60
+    ReservedConcurrentExecutions: 5
+    Handler: main.handler 
+    CodeUri: ./src/googleAnalytics/firehoseTransformationFunction
+
+InvokeLambdaPolicy:
+  Type: AWS::IAM::Policy
+  Properties:
+    PolicyName: firehose_lambda_policy
+    PolicyDocument:
+      Version: '2012-10-17'
+      Statement:
+        - Effect: Allow
+          Action:
+            - lambda:InvokeFunction
+          Resource:
+            !GetAtt FirehoseTransformationFunction.Arn
+    Roles:
+      - Ref: KinesisFirehoseRole

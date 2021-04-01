@@ -1,0 +1,16 @@
+# Registers the product-specific S3 buckets with LakeFormation in the central account
+# to allow LakeFormation to manage permissions for access to the data.
+
+PerfectPlayRawBucketResource:
+  Type: AWS::LakeFormation::Resource
+  Properties: 
+    ResourceArn: !Sub 'arn:aws:s3:::${PerfectPlayRawBucketName}'
+    RoleArn: !GetAtt LakeFormationS3AccessRole.Arn
+    UseServiceLinkedRole: false
+
+PerfectPlaySensitiveBucketResource:
+  Type: AWS::LakeFormation::Resource
+  Properties: 
+    ResourceArn: !Sub 'arn:aws:s3:::${PerfectPlaySensitiveBucketName}'
+    RoleArn: !GetAtt LakeFormationS3AccessRole.Arn
+    UseServiceLinkedRole: false

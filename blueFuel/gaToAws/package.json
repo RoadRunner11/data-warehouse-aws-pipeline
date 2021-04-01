@@ -1,0 +1,12 @@
+{
+    "name": "cdv-bf-ga-to-aws",
+    "version": "1.0.0",
+    "description": "Import Google Analytics Into AWS",
+    "scripts": {
+        "deploy": "node deploymentScripts/deploy.js"
+    },
+    "dependencies": {
+        "colors": "^1.4.0",
+        "minimist": "^1.2.5"
+    }
+}

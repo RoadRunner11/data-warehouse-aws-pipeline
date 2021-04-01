@@ -1,0 +1,7 @@
+{
+    "deploymentS3BucketName": "cdv-api-admin-deployment-london",
+    "deploymentFolderInS3": "qapp-pp-core",
+    "pinpointDeploymentS3BucketName": "cdv-deployment",
+    "pinpointDeploymentFolderInS3": "qapp-pp-pinpoint",
+    "pinpointRegion": "eu-west-1"
+}

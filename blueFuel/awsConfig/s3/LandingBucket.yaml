@@ -1,0 +1,23 @@
+LandingBucket:
+  Type: AWS::S3::Bucket
+  DependsOn:
+    - PinpointLandingDataSnsTopicPolicy
+  Properties:
+    BucketName: !Sub 'cdv-datalake-landing-bf-${Environment}'
+    NotificationConfiguration:
+      TopicConfigurations:
+        - Event: s3:ObjectCreated:*
+          Topic: !Ref PinpointLandingDataSnsTopic
+          Filter:
+            S3Key:
+              Rules:
+                - Name: prefix
+                  Value: 'pinpoint-analytics'
+      LambdaConfigurations:
+        - Event: s3:ObjectCreated:*
+          Function: !GetAtt CopyLandingGADataToLegacyBucketFunction.Arn
+          Filter:
+            S3Key:
+              Rules:
+                - Name: prefix
+                  Value: 'ga-website'

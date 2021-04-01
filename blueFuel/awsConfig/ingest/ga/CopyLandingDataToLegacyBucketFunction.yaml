@@ -1,0 +1,44 @@
+# To ensure the legacy google analytics data pipeline continues to work, this function
+# copies raw GA data from the Landing bucket in to the legacy GA firehose bucket.
+
+CopyLandingGADataToLegacyBucketFunction:
+  Type: AWS::Serverless::Function
+  Properties:
+    FunctionName: !Sub 'cdv-bf-datalake-${Environment}-CopyLandingGADataToLegacyBucketFunction'
+    CodeUri: ./.build/copyGALandingDataToLegacyBucket
+    Handler: index.handler
+    Runtime: nodejs12.x
+    Tracing: Active
+    Timeout: 10
+    Environment:
+      Variables:
+        environment: !Ref Environment
+        sourceKeyPrefix: 'ga-website'
+        destinationKeyPrefix: 'raw/ga'
+        destinationBucketName: !Ref GALegacyFirehoseBucket
+    Policies:
+      - Statement:
+        - Effect: Allow
+          Action:
+            - "s3:GetObject"
+            - "s3:ListBucket"
+          Resource:
+            # Bucket name hardcoded to avoid circular dependency
+            - !Sub "arn:aws:s3:::cdv-datalake-landing-bf-${Environment}"
+            - !Sub "arn:aws:s3:::cdv-datalake-landing-bf-${Environment}/ga-website/*"
+
+        - Effect: Allow
+          Action:
+            - "s3:GetObject"
+            - "s3:PutObject"
+            - "s3:ListBucket"
+          Resource:
+            - !Sub 'arn:aws:s3:::${GALegacyFirehoseBucket}/raw/ga/*'
+            - !Sub 'arn:aws:s3:::${GALegacyFirehoseBucket}'
+        
+AllowS3ToInvokeLambdaPermission:
+  Type: AWS::Lambda::Permission
+  Properties:
+    Action: 'lambda:InvokeFunction'
+    FunctionName: !GetAtt CopyLandingGADataToLegacyBucketFunction.Arn
+    Principal: s3.amazonaws.com

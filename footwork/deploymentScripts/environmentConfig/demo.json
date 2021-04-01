@@ -1,0 +1,7 @@
+{
+    "deploymentS3BucketName": "aws-sam-cli-managed-default-samclisourcebucket-1iciwwcf8v23k",
+    "deploymentFolderInS3": "demo-fw-core",
+    "pinpointDeploymentS3BucketName": "aws-sam-cli-managed-default-samclisourcebucket-1iciwwcf8v23k",
+    "pinpointDeploymentFolderInS3": "demo-fw-core-pinpoint",
+    "pinpointRegion": "eu-west-1"
+}

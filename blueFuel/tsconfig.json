@@ -1,0 +1,23 @@
+{
+    "compilerOptions": {
+        "incremental": true,
+        "target": "ES2018", // Node 10.x supports es2018
+        "module": "commonjs",
+        "outDir": ".build", // output compiled ts to .build dir
+        "rootDir": "../",
+        "removeComments": true,
+        /* Strict Type-Checking Options */
+        "strict": true,
+        "noImplicitAny": true,
+        // "suppressImplicitAnyIndexErrors": true,
+        "preserveConstEnums": true,
+        "strictNullChecks": true,
+        "strictFunctionTypes": true,
+        "forceConsistentCasingInFileNames": true,
+        "noErrorTruncation": true,
+        "resolveJsonModule": true,
+        /* Module Resolution Options */
+        "moduleResolution": "node",
+        "esModuleInterop": true,
+    }
+}

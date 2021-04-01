@@ -1,0 +1,7 @@
+{
+  "deploymentS3BucketName": "cdv-deployment",
+  "deploymentFolderInS3": "cameront-pp-core",
+  "pinpointDeploymentS3BucketName": "cdv-deployment",
+  "pinpointDeploymentFolderInS3": "cameront-pp-pinpoint",
+  "pinpointRegion": "eu-west-1"
+}

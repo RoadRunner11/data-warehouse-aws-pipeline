@@ -1,0 +1,42 @@
+LakeFormationS3AccessRole:
+  Type: AWS::IAM::Role
+  Properties: 
+    RoleName: !Sub 'lake-formation-cross-account-access-role-${Environment}'
+    AssumeRolePolicyDocument:
+      Version: '2012-10-17'
+      Statement:
+      - Effect: Allow
+        Principal:
+          Service:
+          - glue.amazonaws.com
+          - lakeformation.amazonaws.com
+        Action: 'sts:AssumeRole'
+    Policies:
+    - PolicyName: !Sub 'access-product-accounts-s3-${Environment}'
+      PolicyDocument: 
+        Version: '2012-10-17'
+        Statement: 
+
+        - Effect: 'Allow'
+          Action:
+            - 's3:PutObject'
+            - 's3:GetObject'
+            - 's3:DeleteObject'
+          Resource:
+            - !Sub 'arn:aws:s3:::${BlueFuelRawBucketName}/*'
+            - !Sub 'arn:aws:s3:::${BlueFuelSensitiveBucketName}/*'
+            - !Sub 'arn:aws:s3:::${PerfectPlayRawBucketName}/*'
+            - !Sub 'arn:aws:s3:::${PerfectPlaySensitiveBucketName}/*'
+            - !Sub 'arn:aws:s3:::${FootworksRawBucketName}/*'
+            - !Sub 'arn:aws:s3:::${FootworksSensitiveBucketName}/*'
+
+        - Effect: 'Allow'
+          Action:
+            - 's3:ListBucket'
+          Resource:
+            - !Sub 'arn:aws:s3:::${BlueFuelRawBucketName}'
+            - !Sub 'arn:aws:s3:::${BlueFuelSensitiveBucketName}'
+            - !Sub 'arn:aws:s3:::${PerfectPlayRawBucketName}'
+            - !Sub 'arn:aws:s3:::${PerfectPlaySensitiveBucketName}'
+            - !Sub 'arn:aws:s3:::${FootworksRawBucketName}'
+            - !Sub 'arn:aws:s3:::${FootworksSensitiveBucketName}'

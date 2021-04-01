@@ -1,0 +1,16 @@
+# Registers the product-specific S3 buckets with LakeFormation in the central account
+# to allow LakeFormation to manage permissions for access to the data.
+
+FootworksRawBucketResource:
+  Type: AWS::LakeFormation::Resource
+  Properties: 
+    ResourceArn: !Sub 'arn:aws:s3:::${FootworksRawBucketName}'
+    RoleArn: !GetAtt LakeFormationS3AccessRole.Arn
+    UseServiceLinkedRole: false
+
+FootworksSensitiveBucketResource:
+  Type: AWS::LakeFormation::Resource
+  Properties: 
+    ResourceArn: !Sub 'arn:aws:s3:::${FootworksSensitiveBucketName}'
+    RoleArn: !GetAtt LakeFormationS3AccessRole.Arn
+    UseServiceLinkedRole: false

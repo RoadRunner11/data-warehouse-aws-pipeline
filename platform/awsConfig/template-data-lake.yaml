@@ -1,0 +1,50 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Transform: AWS::Serverless-2016-10-31
+Description: Central Data Lake resources 
+
+Metadata:
+  AWS::ServerlessRepo::Application:
+    Name: !Sub 'cdv-data-lake-platform-${Environment}'
+    Description: Central Data Lake resources 
+    Author: Apadmi
+    Labels: ['cdv']
+
+Outputs:
+  LakeFormationS3AccessRoleArn:
+    Description: ARN of the Role used by Lake Formation to access S3 buckets in product accounts
+    Value: !GetAtt LakeFormationS3AccessRole.Arn
+
+Parameters:
+  Environment:
+    Description: Environment being deployed to. This will be used as part of the resource names
+    Type: String
+
+  BlueFuelRawBucketName:
+    Description: 'Name of the Raw S3 Bucket in the BlueFuel account'
+    Type: String
+  BlueFuelSensitiveBucketName:
+    Description: 'Name of the Sensitive S3 Bucket in the BlueFuel account'
+    Type: String
+
+  PerfectPlayRawBucketName:
+    Description: 'Name of the Raw S3 Bucket in the Perfect Play account'
+    Type: String
+  PerfectPlaySensitiveBucketName:
+    Description: 'Name of the Sensitive S3 Bucket in the Perfect Play account'
+    Type: String
+
+  FootworksRawBucketName:
+    Description: 'Name of the Raw S3 Bucket in the Footworks account'
+    Type: String
+  FootworksSensitiveBucketName:
+    Description: 'Name of the Sensitive S3 Bucket in the Footworks account'
+    Type: String
+
+Resources:
+  # IAM Roles
+  $include: ./iam/LakeFormationS3AccessRole.yaml
+
+  # Lake Formation Resources
+  $include: ./lakeFormation/BlueFuelResources.yaml
+  $include: ./lakeFormation/PerfectPlayResources.yaml
+  $include: ./lakeFormation/FootworksResources.yaml

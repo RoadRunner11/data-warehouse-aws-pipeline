@@ -1,0 +1,4 @@
+{
+  "deploymentS3BucketName": "cdv-deployment-staging-c3297c63-eab5-4b22-bb81-b4fc172321c7",
+  "deploymentFolderInS3": "staging-platform-datalake"
+}

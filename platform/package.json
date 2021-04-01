@@ -1,0 +1,55 @@
+{
+    "name": "cdv-healthplatform-monorepo-datalake",
+    "version": "1.0.0",
+    "description": "CDV Data Lake",
+    "scripts": {
+        "deploy": "npm run compileAwsConfig && node ./deploymentScripts/deploy.js",
+        "compileAwsConfig": "yamlinc awsConfig/template-data-lake.yaml --schema node_modules/cloudformation-schema-js-yaml",
+        "husky:pre-commit": "git diff develop --cached --relative --quiet && echo \"no changes\" || lint-staged",
+        "husky:pre-push": "git diff develop --relative --quiet && echo \"no changes\" || (tsc --noEmit -p ./tsconfig.json && jest --bail)"
+    },
+    "dependencies": {},
+    "devDependencies": {
+        "@types/node": "^12.0.10",
+        "colors": "^1.4.0",
+        "cpx": "^1.5.0",
+        "glob": "^7.1.6",
+        "lint-staged": "^8.2.1",
+        "prettier": "^1.18.2",
+        "tslint": "^5.17.0",
+        "cloudformation-schema-js-yaml": "^1.0.1",
+        "yamlinc": "^0.1.10"
+    },
+    "lint-staged": {
+        "src/**/*.ts": [
+            "tslint --project tsconfig.json -c tslint.json",
+            "prettier --write",
+            "git add"
+        ],
+        "*.json": [
+            "prettier --write",
+            "git add"
+        ]
+    },
+    "prettier": {
+        "tabWidth": 4,
+        "singleQuote": true,
+        "printWidth": 140
+    },
+    "jest": {
+        "rootDir": "src",
+        "testEnvironment": "node",
+        "testRegex": "(/__tests__/.*|(\\.|/)(test|spec))\\.(jsx?|tsx?)$",
+        "moduleFileExtensions": [
+            "ts",
+            "tsx",
+            "js",
+            "jsx",
+            "json",
+            "node"
+        ],
+        "testResultsProcessor": "../customJestResultsProcessor.js",
+        "collectCoverage": true,
+        "coverageDirectory": "../coverage"
+    }
+}

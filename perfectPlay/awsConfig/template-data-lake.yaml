@@ -1,0 +1,36 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Transform: AWS::Serverless-2016-10-31
+Description: Data Lake ingest pipeline for Perfect Play
+
+Metadata:
+  AWS::ServerlessRepo::Application:
+    Name: !Sub 'cdv-data-lake-pp-${Environment}'
+    Description: Data Lake core for Perfect Play
+    Author: Apadmi
+    Labels: ['cdv']
+
+Parameters:
+  Environment:
+    Description: Environment being deployed to. This will be used as part of the resource names
+    Type: String
+  LakeFormationS3AccessRoleArn:
+    Description: ARN of the Role in the platform account used by LakeFormation to access product S3 buckets.
+    Type: String
+
+Outputs:
+  LandingBucketName:
+    Description: Name of the Landing S3 bucket
+    Value: !Ref LandingBucket
+  LandingDataSnsTopicArn:
+    Description: ARN of the SNS topic which is notified when new pinpoint data arrives in the landing bucket
+    Value: !Ref PinpointLandingDataSnsTopic
+
+Resources:
+  # S3
+  $include: ./s3/LandingBucket.yaml
+  $include: ./s3/RawBucket.yaml
+  $include: ./s3/SensitiveBucket.yaml
+  $include: ./s3/CleansedBucket.yaml
+
+  # SNS
+  $include: ./sns/PinpointLandingDataSnsTopic.yaml

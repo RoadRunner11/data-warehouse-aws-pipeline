@@ -1,0 +1,7 @@
+{
+  "deploymentS3BucketName": "cdv-deployment-staging-c732e2d6-0dfe-4c18-92c0-2bcb9177076b",
+  "deploymentFolderInS3": "staging-pp-core",
+  "pinpointDeploymentS3BucketName": "cdv-deployment-staging-c732e2d6-0dfe-4c18-92c0-2bcb9177076b",
+  "pinpointDeploymentFolderInS3": "staging-pp-pinpoint",
+  "pinpointRegion": "eu-west-1"
+}

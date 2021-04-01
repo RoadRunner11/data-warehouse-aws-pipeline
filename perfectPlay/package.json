@@ -1,0 +1,39 @@
+{
+    "name": "cdv-healthplatform-datalake-core-bf",
+    "version": "1.0.0",
+    "description": "Blue Fuel Data Lake Core for CDV Health Platform",
+    "scripts": {
+        "deploy": "npm run compileDataLakeAwsConfig && node ./deploymentScripts/deployDataLake.js",
+        "compileDataLakeAwsConfig": "yamlinc awsConfig/template-data-lake.yaml --schema node_modules/cloudformation-schema-js-yaml"
+    },
+    "dependencies": {
+        "aws-sdk": "^2.478.0",
+        "aws-xray-sdk-core": "^3.0.1",
+        "cloudformation-schema-js-yaml": "^1.0.1",
+        "fs": "0.0.1-security",
+        "middy": "latest",
+        "sharp": "^0.24.1",
+        "uuid": "^3.3.2"
+    },
+    "devDependencies": {
+        "@babel/core": "^7.4.5",
+        "@babel/preset-env": "^7.4.5",
+        "@babel/preset-typescript": "^7.3.3",
+        "@types/aws-lambda": "^8.10.27",
+        "@types/node": "^12.0.10",
+        "@types/node-fetch": "^2.5.4",
+        "@types/uuid": "^3.4.5",
+        "colors": "^1.4.0",
+        "cpx": "^1.5.0",
+        "prompts": "^2.2.1",
+        "ts-loader": "^8.0.11",
+        "typescript": "^3.6.3",
+        "webpack": "^4.39.3",
+        "webpack-cli": "^3.3.5",
+        "webpack-node-externals": "^1.7.2",
+        "yamlinc": "^0.1.10"
+    },
+    "homepage": "https://github.com/cdv-chelseafc/cdv-datalake",
+    "author": "",
+    "license": "ISC"
+}

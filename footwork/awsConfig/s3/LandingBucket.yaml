@@ -1,0 +1,4 @@
+LandingBucket:
+  Type: AWS::S3::Bucket
+  Properties:
+    BucketName: !Sub 'cdv-datalake-landing-fw-${Environment}'

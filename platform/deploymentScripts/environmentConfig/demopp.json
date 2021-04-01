@@ -1,0 +1,4 @@
+{
+    "deploymentS3BucketName": "cdv-api-admin-deployment-london",
+    "deploymentFolderInS3": "demopp-platform-datalake"
+}

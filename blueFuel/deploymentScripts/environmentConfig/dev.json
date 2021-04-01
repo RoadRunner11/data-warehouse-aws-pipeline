@@ -1,0 +1,7 @@
+{
+    "deploymentS3BucketName": "cdv-deployment",
+    "deploymentFolderInS3": "cdv-bf-core-dev",
+    "pinpointDeploymentS3BucketName": "cdv-deployment-pinpoint-9b33fe9e-d189-4942-a56e-2f5fd96d6796",
+    "pinpointDeploymentFolderInS3": "dev-pinpoint",
+    "pinpointRegion": "us-east-1"
+}

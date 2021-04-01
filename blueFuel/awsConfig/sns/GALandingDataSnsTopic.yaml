@@ -1,0 +1,23 @@
+# SNS topic which is notified when new GA data arrives in the landing bucket
+GALandingDataSnsTopic:
+  Type: AWS::SNS::Topic
+  Properties:
+    TopicName: !Sub 'cdv-datalake-bf-landing-ga-${Environment}'
+
+GALandingDataSnsTopicPolicy:
+    Type: 'AWS::SNS::TopicPolicy'
+    Properties:
+      Topics:
+        - !Ref GALandingDataSnsTopic
+      PolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Action: 'sns:Publish'
+            Resource: !Ref GALandingDataSnsTopic
+            Principal:
+              Service: "s3.amazonaws.com"
+            Condition:
+              ArnLike:
+                # Can't use Ref here because it creates a circular dependency between bucket and SNS topic
+                AWS:SourceArn: !Sub 'arn:aws:s3:::cdv-datalake-landing-bf-${Environment}' 

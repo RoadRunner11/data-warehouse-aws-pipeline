@@ -1,0 +1,13 @@
+LandingBucket:
+  Type: AWS::S3::Bucket
+  Properties:
+    BucketName: !Sub 'cdv-datalake-landing-pp-${Environment}'
+    NotificationConfiguration:
+      TopicConfigurations:
+        - Event: s3:ObjectCreated:*
+          Topic: !Ref PinpointLandingDataSnsTopic
+          Filter:
+            S3Key:
+              Rules:
+                  - Name: prefix
+                    Value: 'pinpoint-analytics'

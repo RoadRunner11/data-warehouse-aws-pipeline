@@ -1,0 +1,27 @@
+EventFirehose:
+  Type: AWS::KinesisFirehose::DeliveryStream
+  Properties:
+  
+    # This name is hard-coded in the parameters of the ga-collector stack to avoid a circular dependency.
+    # If it is changed here it must be changed there too
+    DeliveryStreamName: !Sub 'cdv-datalake-google-analytics-firehose-bf-${Environment}'
+
+    ExtendedS3DestinationConfiguration:
+      BucketARN:
+        !GetAtt LandingBucket.Arn
+      BufferingHints:
+        IntervalInSeconds: 60
+        SizeInMBs: 10
+      CompressionFormat: UNCOMPRESSED
+      Prefix: "ga-website/year=!{timestamp:YYYY}/month=!{timestamp:MM}/day=!{timestamp:dd}/"
+      ErrorOutputPrefix: "/errors/ga-website/!{firehose:random-string}/!{firehose:error-output-type}/!{timestamp:yyyy/MM/dd}/"
+      RoleARN:
+        !GetAtt KinesisFirehoseRole.Arn
+      ProcessingConfiguration:
+        Enabled: true
+        Processors:
+          - Parameters:
+            - ParameterName: LambdaArn
+              ParameterValue: 
+                !GetAtt FirehoseTransformationFunction.Arn
+            Type: Lambda

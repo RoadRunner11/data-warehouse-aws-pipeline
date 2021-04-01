@@ -1,0 +1,7 @@
+{
+    "deploymentS3BucketName": "cdv-deployment-live-f918e47c-3a9a-4251-8a65-7307e520c689",
+    "deploymentFolderInS3": "live-bf-core",
+    "pinpointDeploymentS3BucketName": "cdv-deployment-pinpoint-06916aa6-21e3-4374-b383-7d0304816cb3",
+    "pinpointDeploymentFolderInS3": "live-pinpoint",
+    "pinpointRegion": "us-east-1"
+}

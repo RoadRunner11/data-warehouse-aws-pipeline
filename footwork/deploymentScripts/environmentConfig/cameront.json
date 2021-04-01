@@ -1,0 +1,7 @@
+{
+    "deploymentS3BucketName": "aws-sam-cli-managed-default-samclisourcebucket-sc7z1z92ym0t",
+    "deploymentFolderInS3": "cameront-fw-core",
+    "pinpointDeploymentS3BucketName": "aws-sam-cli-managed-default-samclisourcebucket-sc7z1z92ym0t",
+    "pinpointDeploymentFolderInS3": "cameront-fw-core-pinpoint",
+    "pinpointRegion": "eu-west-1"
+}

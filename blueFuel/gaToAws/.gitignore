@@ -1,0 +1,8 @@
+.DS_Store
+node_modules
+*.mmdb
+**/build
+**/tmp
+**/local
+functions/lambda-layers/*
+functions/dev-environment/

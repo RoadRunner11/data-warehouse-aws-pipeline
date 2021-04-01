@@ -1,0 +1,4 @@
+{
+    "deploymentS3BucketName": "cdv-deployment-staging-80b61c46-140f-47ee-a2f2-e00bab53f213",
+    "deploymentFolderInS3": "cdv-bf-ga-to-aws-staging"
+}

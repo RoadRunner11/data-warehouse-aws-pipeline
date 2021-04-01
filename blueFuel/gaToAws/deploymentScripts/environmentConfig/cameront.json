@@ -1,0 +1,4 @@
+{
+  "deploymentS3BucketName": "cdv-deployment",
+  "deploymentFolderInS3": "cdv-bf-ga-to-aws-cameront"
+}

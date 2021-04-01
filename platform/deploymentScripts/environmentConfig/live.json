@@ -1,0 +1,4 @@
+{
+  "deploymentS3BucketName": "cdv-deployment-live-dc8df432-2d63-49a1-a715-4af26b292ff5",
+  "deploymentFolderInS3": "live-platform-datalake"
+}
